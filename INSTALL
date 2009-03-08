@@ -1,0 +1,13 @@
+   * Building Shelf
+
+      $ omake
+
+   * Building documentation
+
+      $ omake doc
+
+   * Dependencies
+
+      - OCaml >= 3.10.2   <http://caml.inria.fr/ocaml/>
+      - OCamlfind         <http://projects.camlcity.org/projects/findlib.html>
+      - OMake             <http://omake.metaprl.org/index.html>

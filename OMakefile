@@ -1,0 +1,33 @@
+NAME = shelf
+VERSION = 0.1.5
+
+DISTDIR = dist
+SRCDIR = src
+DOCDIR = doc
+
+.PHONY: build clean dist-clean source doc
+.DEFAULT: build
+.SUBDIRS: $(SRCDIR)
+
+##################################################
+#  Create archive of the source
+
+SOURCE_FILES = $(SRCDIR)/*.ml* $(SRCDIR)/OMakefile
+BASE_FILES = OMakefile OMakeroot README INSTALL LICENSE
+EXPORTDIR = $(NAME)-$(VERSION)
+source: dist-clean
+    mkdir -p $(EXPORTDIR)/$(SRCDIR) $(DISTDIR)
+    cp $(BASE_FILES) $(EXPORTDIR)
+    cp $(SOURCE_FILES) $(EXPORTDIR)/$(SRCDIR)
+    tar -c $(EXPORTDIR) | gzip -f --best > $(DISTDIR)/src-$(NAME)-$(VERSION).tar.gz
+    rm -rf $(EXPORTDIR)
+
+##################################################
+#  Clean up
+clean:
+    rm -rf $(DISTDIR)
+
+dist-clean: clean
+    rm -f OMakeroot.omc
+    rm -f OMakefile.omc
+    rm -f .omakedb.lock .omakedb

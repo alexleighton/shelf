@@ -1,0 +1,9 @@
+OMakeroot.omc
+OMakefile.omc
+.omakedb
+.omakedb.lock
+src/*.cm[ix]
+src/*.o
+src/*.mli
+dist/*
+doc/*

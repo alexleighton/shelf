@@ -1,0 +1,108 @@
+     +--+---+-+       +--------+         +---+-+--+--+
+    /  /   / /|      / Shelf  /|        /   / /  /  /|
+   +--+---+-+ |     +------- + |       +---+-+--+--+ |
+   |  |   | | |     |a small | |       |   | |  |  | |
+---|  |   | | +-----| stack  | +-------|   | |  |  | +----/|
+   |  |   | |/      |language|/        |   | |  |  |/    //
+---+--+---+-+-------+--------+---------+---+-+--+--+----//
+-------------------------------------------------------|/
+
+
+---Shelf-/
+--------/
+
+   Shelf is a functional, dynamic, stack-based language.
+
+
+---Features-/
+-----------/
+
+   * Mostly pure functional. There's an impure print word
+     and print-stack word, but that's about it. Functions
+     are first class values.
+
+   * Stack-based. All words (functions) take their
+     parameters off the stack. Basically, all data resides
+     on the stack.
+
+   * Garbage Collected. Shelf is an interpreter written in
+     OCaml, and as such, benefits from the underlying
+     garbage collection.
+
+   * Functional Interpreter. The interpreter is implemented
+     using immutable data structures, so it's thread safe.
+
+   * Arbitrary precision numbers. No need to worry about
+     overflowing.
+
+
+---Building-/
+-----------/
+
+   $ omake
+
+   For more options, see INSTALL file.
+
+
+---Examples-/
+-----------/
+
+   * Basic
+
+      >>> "hello world" print
+      "hello world"
+      Stack:
+
+      >>> 2 2 +
+      Stack: 4
+
+      >>> 3 2 -
+      Stack: 1
+
+   * Lists
+
+      >>> [1 2 3 4 5] list
+      Stack: (1,2,3,4,5)
+
+      >>> [1 2 3 4] list head
+      Stack: (2,3,4) 1
+
+   * Anonymous functions
+
+      >>> 1 2 [+] apply
+      Stack: 3
+
+      >>> 1 2 < ["logic makes sense"] ["alt universe"] if
+      Stack: "logic makes sense"
+
+   * Named functions
+
+      >>> def fac { dup 0 = [pop 1] [dup 1 - fac *] if }
+      Stack:
+      >>> 5 fac
+      Stack: 120
+      >>> pop 39 fac
+      Stack: 20397882081197443358640281739902897356800000000
+
+
+---License-/
+----------/
+
+   Shelf is free software: you can redistribute it and/or
+   modify it under the terms of the GNU General Public
+   License as published by the Free Software Foundation,
+   either version 3 of the License, or (at your option) any
+   later version.
+
+   A copy of the license can be found in the LICENSE file.
+
+                             ~~~
+
+                         ______________
+      _/\|\_\_          / Programmer,  \
+    _| .-     \___     / use the Stack! \
+    \/     )     o`o _/_________________/
+   </  ) _/_ )-.___/
+   /  /\(  (/
+   | (__`'` '`
+    '--.)

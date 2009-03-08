@@ -1,0 +1,47 @@
+PROGRAM = $(NAME)
+FILES = types stackp nm evaluate primitives lexer parser runtime
+
+USE_OCAMLFIND = true
+
+if $(not $(OCAMLFIND_EXISTS))
+	eprintln(This project requires ocamlfind, but is was not found.)
+	eprintln(You need to install ocamlfind and run "omake --configure".)
+	exit 1
+
+# Libraries to be ocamlfound
+OCAMLPACKS[] =
+	num
+
+BYTE_ENABLED = false
+NATIVE_ENABLED = true
+
+# this is to remove -warn-error that is on by default
+OCAMLFLAGS =
+
+##################################################
+#  Build the executable
+
+build: $(OCamlProgram $(PROGRAM), $(FILES))
+	mkdir -p ../$(DISTDIR)
+	mv $(PROGRAM).opt ../$(DISTDIR)/$(PROGRAM).opt
+#	mv $(PROGRAM).run ../$(DISTDIR)/$(PROGRAM).run
+	mv $(PROGRAM) ../$(DISTDIR)/$(PROGRAM)
+
+##################################################
+#  Create documentation
+
+doc: build
+	mkdir -p ../$(DOCDIR) ../$(DISTDIR)
+	ocamldoc -html -d ../$(DOCDIR) -t "$(NAME) Documentation" -hide-warnings -sort *.ml *.mli
+	tar -c ../$(DOCDIR) | gzip -f --best > ../$(DISTDIR)/doc-$(NAME).tar.gz
+
+##################################################
+#  Clean up
+
+clean:
+	rm -f *.cm[iox] *.o
+	rm -f parser.ml parser.mli lexer.ml lexer.mli
+	rm -rf ../$(DOCDIR)
+
+dist-clean: clean
+	rm -f OMakefile.omc
