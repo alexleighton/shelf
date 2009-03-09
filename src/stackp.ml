@@ -71,7 +71,7 @@ let iter f s = List.iter f s.data
 (*  Helper functions.                             *)
 
 (** Return a list of all values in the stack. *)
-let list_of_stack s = s.data
+let list_of_stack s = List.rev s.data
 
 (** Return the values (bottom,top,stack). *)
 let get_two s =
